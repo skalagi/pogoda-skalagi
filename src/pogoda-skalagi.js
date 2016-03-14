@@ -15,10 +15,20 @@ const WebFontConfig = {
   s.parentNode.insertBefore(wf, s);
 })()
 
+import Basic from '@pogoda/basic-api';
+
 class PogodaSkalagi extends HTMLElement {
   createdCallback() {
     this.createShadowRoot()
       .appendChild(document.importNode($template.content, true));
+
+    this.temp = this.shadowRoot.querySelector('.temp_val');
+
+    new Basic('https://cached.skalagi.pl').on('updated', ::this.update);
+  }
+
+  update(api) {
+    this.temp.textContent = `${api.temperature.current.value}°C`;
   }
 }
 

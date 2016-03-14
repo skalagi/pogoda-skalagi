@@ -1,5 +1,5 @@
 var path = require('path')
-var projectRoot = path.resolve(__dirname, '../')
+var projectRoot = path.resolve(__dirname, '../src')
 
 module.exports = {
   entry: {
@@ -51,8 +51,10 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel',
-        include: projectRoot,
-        exclude: /node_modules/
+        include: [
+          projectRoot,
+          path.resolve(__dirname, '../node_modules/@pogoda')
+        ],
       },
       {
         test: /\.json$/,
